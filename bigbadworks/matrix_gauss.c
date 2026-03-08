@@ -23,7 +23,7 @@ int matrix_gauss_solve(const matrix *A, const matrix *B, matrix *X) {
     }
 
     for (size_t k = 0; k < n; k++) {
-        // Поиск главного элемента
+        // search for main element
         size_t max_row = k;
         double max_val = fabs(*matrix_cptr(A_copy, k, k));
 

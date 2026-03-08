@@ -3,10 +3,10 @@
 
 #include <stddef.h>
 
-// Неполный тип - только объявление
+// Incomplete type - only declaration
 typedef struct matrix matrix;
 
-// Все функции остаются теми же
+// All functions remain the same
 matrix *matrix_alloc(size_t w, size_t h);
 matrix *matrix_copy(const matrix *m);
 void matrix_free(matrix *m);

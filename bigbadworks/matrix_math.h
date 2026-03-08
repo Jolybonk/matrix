@@ -3,138 +3,138 @@
 
 #include "matrix.h"
 
-// Арифметические операции (с изменением первого аргумента)
+// Arithmetic operations (with change of the first argument)
 
 /**
  * m1 = m1 + m2
- * @return 0 при успехе, -1 если размеры не совпадают
+ * @return 0 if success, -1 if the sizes do not match
  */
 int matrix_add(matrix *m1, const matrix *m2);
 
 /**
  * m1 = m1 - m2
- * @return 0 при успехе, -1 если размеры не совпадают
+ * @return 0 if success, -1 if the sizes do not match
  */
 int matrix_sub(matrix *m1, const matrix *m2);
 
 /**
- * m = m * d (умножение на скаляр)
+ * m = m * d (multiply by scalar)
  */
 void matrix_smul(matrix *m, double d);
 
 /**
- * m = m / d (деление на скаляр)
+ * m = m / d (division by scalar)
  */
 void matrix_sdiv(matrix *m, double d);
 
-// Арифметические операции (с результатом в отдельную матрицу)
+// Arithmetic operations (with the result in a separate matrix)
 
 /**
  * m = m1 + m2
- * @return 0 при успехе, -1 если размеры не совпадают
+ * @return 0 on success, -1 if the sizes do not match
  */
 int matrix_add2(matrix *m, const matrix *m1, const matrix *m2);
 
 /**
  * m = m1 - m2
- * @return 0 при успехе, -1 если размеры не совпадают
+ * @return 0 on success, -1 if the sizes do not match
  */
 int matrix_sub2(matrix *m, const matrix *m1, const matrix *m2);
 
 /**
  * m = m1 * d
- * @return 0 при успехе, -1 если ошибка
+ * @return 0 on success, -1 on error
  */
 int matrix_smul2(matrix *m, const matrix *m1, double d);
 
 /**
  * m = m1 / d
- * @return 0 при успехе, -1 если ошибка
+ * @return 0 on success, -1 on error
  */
 int matrix_sdiv2(matrix *m, const matrix *m1, double d);
 
-// Умножение матриц
+// Matrix multiplication
 
 /**
  * m1 = m1 * m2
- * @return 0 при успехе, -1 если размеры не подходят для умножения
+ * @return 0 on success, -1 if the dimensions are not suitable for multiplication
  */
 int matrix_mul(matrix *m1, const matrix *m2);
 
 /**
  * m = m1 * m2
- * @return 0 при успехе, -1 если размеры не подходят
+ * @return 0 on success, -1 if the dimensions do not match
  */
 int matrix_mul2(matrix *m, const matrix *m1, const matrix *m2);
 
-// Манипуляции с матрицами
+// Matrix manipulations
 
 /**
- * Транспонирование матрицы (для квадратной - на месте)
- * @param m матрица
+ * Matrix transposition (for square - in place)
+ * @param m matrix
  */
 void matrix_transpose(matrix *m);
 
 /**
- * Создает транспонированную копию матрицы
- * @param m исходная матрица
- * @return новая транспонированная матрица или NULL при ошибке
+ * Creates a transposed copy of a matrix.
+ * @param m is the original matrix
+ * @return the new transposed matrix or NULL on error
  */
 matrix *matrix_transpose_new(const matrix *m);
 
 /**
- * Норма матрицы: максимум по строкам суммы модулей элементов
+ * Matrix norm: maximum of row sums of absolute values of elements
  */
 double matrix_norm(const matrix *m);
 
 /**
- * Перестановка строк i и j
+ * Swap rows i and j
  */
 void matrix_swap_rows(matrix *m, size_t i, size_t j);
 
 /**
- * Перестановка столбцов i и j
+ * Swap columns i and j
  */
 void matrix_swap_cols(matrix *m, size_t i, size_t j);
 
 /**
- * Умножение строки i на число d
+ * Multiply row i by scalar d
  */
 void matrix_scale_row(matrix *m, size_t i, double d);
 
 /**
- * Сложение строки i и строки j (с коэффициентом)
+ * Add row i and row j (with coefficient)
  * row_i = row_i + coeff * row_j
  */
 void matrix_add_rows(matrix *m, size_t i, size_t j, double coeff);
 
-// Решеаие СЛАУ методом Гаусса
+// Solving SLAE by Gaussian elimination
 
 /**
- * Решение системы AX = B методом Гаусса с выбором главного элемента
- * @param A матрица коэффициентов (квадратная, невырожденная)
- * @param B матрица правых частей
- * @param X матрица для результата
- * @return 0 при успехе, -1 если матрица вырожденная или ошибка
+ * Solve system AX = B by Gaussian elimination with partial pivoting
+ * @param A coefficient matrix (square, non-singular)
+ * @param B right-hand side matrix
+ * @param X result matrix
+ * @return 0 on success, -1 if matrix is singular or error
  */
 int matrix_gauss_solve(const matrix *A, const matrix *B, matrix *X);
 
 /**
- * Проверка решения: вычисляет невязку R = A*X - B
- * @param A матрица коэффициентов
- * @param B матрица правых частей
- * @param X найденное решение
- * @return норма невязки
+ * Check solution: compute residual R = A*X - B
+ * @param A coefficient matrix
+ * @param B right-hand side matrix
+ * @param X computed solution
+ * @return residual norm
  */
 double matrix_residual_norm(const matrix *A, const matrix *B, const matrix *X);
 
-// Матричная экспонента
+// Matrix exponential
 
 /**
- * Вычисление матричной экспоненты: exp(A) = E + A + A^2/2! + A^3/3! + ...
- * @param A исходная матрица (квадратная)
- * @param eps точность (остановка когда норма очередного члена < eps)
- * @return новая матрица exp(A) или NULL при ошибке
+ * Compute matrix exponential: exp(A) = E + A + A^2/2! + A^3/3! + ...
+ * @param A source matrix (square)
+ * @param eps precision (stop when norm of the next term < eps)
+ * @return new matrix exp(A) or NULL on error
  */
 matrix *matrix_exp(const matrix *A, double eps);
 

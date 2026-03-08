@@ -4,7 +4,7 @@
 #include <string.h>
 #include <math.h>
 
-//Вспомогательные функции
+// Helper functions
 
 static int check_same_size(const matrix *m1, const matrix *m2) {
     if (!m1 || !m2) return -1;
@@ -12,7 +12,7 @@ static int check_same_size(const matrix *m1, const matrix *m2) {
             matrix_cols(m1) == matrix_cols(m2)) ? 0 : -1;
 }
 
-//Арифметические операции (с изменением первого аргумента)
+// Arithmetic operations (with change of the first argument)
 
 int matrix_add(matrix *m1, const matrix *m2) {
     if (check_same_size(m1, m2) != 0) return -1;
@@ -60,7 +60,7 @@ void matrix_sdiv(matrix *m, double d) {
     matrix_smul(m, 1.0 / d);
 }
 
-//Арифметические операции (с результатом в отдельную матрицу)
+// Arithmetic operations (with the result in a separate matrix)
 
 int matrix_add2(matrix *m, const matrix *m1, const matrix *m2) {
     if (!m || !m1 || !m2) return -1;
@@ -114,7 +114,7 @@ int matrix_sdiv2(matrix *m, const matrix *m1, double d) {
     return matrix_smul2(m, m1, 1.0 / d);
 }
 
-//Умножение матриц
+// Matrix multiplication
 int matrix_mul(matrix *m1, const matrix *m2) {
     if (!m1 || !m2) return -1;
     if (matrix_cols(m1) != matrix_rows(m2)) return -1;
@@ -163,7 +163,7 @@ int matrix_mul2(matrix *m, const matrix *m1, const matrix *m2) {
     size_t cols = matrix_cols(m2);
     size_t inner = matrix_cols(m1);
 
-    // Обычное умножение
+    // Regular multiplication
     for (size_t i = 0; i < rows; i++) {
         for (size_t j = 0; j < cols; j++) {
             double sum = 0.0;
@@ -177,7 +177,7 @@ int matrix_mul2(matrix *m, const matrix *m1, const matrix *m2) {
     return 0;
 }
 
-//Манипуляции с матрицами
+// Matrix manipulations
 
 void matrix_transpose(matrix *m) {
     if (!m) return;

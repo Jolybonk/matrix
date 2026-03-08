@@ -4,11 +4,11 @@
 #include <math.h>
 #include <stdlib.h>
 
-// Функция для теста матричной экспоненты
+// Function for testing matrix exponential
 void test_matrix_exp() {
     printf("\nMATRIX EXPONENTIAL TEST \n");
 
-    // Создаем диагональную матрицу
+    // Create a diagonal matrix
     matrix *A = matrix_alloc_id(3);
     *matrix_ptr(A, 0, 0) = 1.0;
     *matrix_ptr(A, 1, 1) = 2.0;
@@ -22,7 +22,7 @@ void test_matrix_exp() {
         printf("\nexp(A):\n");
         matrix_print(expA, "%10.6f");
 
-        // Теоретический результат
+        // Theoretical result
         printf("\nTheoretical result (for verification):\n");
         printf("  %8.6f  0.000000  0.000000\n", exp(1.0));
         printf("  0.000000 %8.6f  0.000000\n", exp(2.0));
@@ -34,7 +34,7 @@ void test_matrix_exp() {
     matrix_free(A);
 }
 
-// Функция для теста метода Гаусса
+// Function for testing Gaussian elimination method
 void test_gauss_solve() {
     printf("\nGAUSS METHOD TEST\n");
 
@@ -61,7 +61,7 @@ void test_gauss_solve() {
         printf("\nSolution X:\n");
         matrix_print(X, "%10.6f");
 
-        // Проверяем решение
+        // Verify the solution
         double residual = matrix_residual_norm(A, B, X);
         printf("\nResidual norm ||A*X - B|| = %e\n", residual);
 
@@ -75,7 +75,7 @@ void test_gauss_solve() {
     matrix_free(X);
 }
 
-// Функция для теста арифметических операций
+// Function for testing arithmetic operations
 void test_arithmetic() {
     printf("\n ARITHMETIC OPERATIONS TEST \n");
 
@@ -93,30 +93,30 @@ void test_arithmetic() {
     printf("\nMatrix B:\n");
     matrix_print(B, "%5.0f");
 
-    // Сложение
+    // Addition
     matrix *C = matrix_alloc(2, 2);
     matrix_add2(C, A, B);
     printf("\nA + B:\n");
     matrix_print(C, "%5.0f");
 
-    // Умножение на скаляр
+    // Scalar multiplication
     matrix *D = matrix_alloc(2, 2);
     matrix_smul2(D, A, 2.5);
     printf("\nA * 2.5:\n");
     matrix_print(D, "%8.2f");
 
-    // Умножение матриц
+    // Matrix multiplication
     matrix *E = matrix_alloc(2, 2);
     matrix_mul2(E, A, B);
     printf("\nA * B:\n");
     matrix_print(E, "%5.0f");
 
-    // Транспонирование
+    // Transposition
     matrix_transpose(A);
     printf("\nTransposed A:\n");
     matrix_print(A, "%5.0f");
 
-    // Норма матрицы
+    // Matrix norm
     printf("\nNorm of matrix B: %f\n", matrix_norm(B));
 
     matrix_free(A);
@@ -125,11 +125,12 @@ void test_arithmetic() {
     matrix_free(D);
     matrix_free(E);
 }
-//Отдельный тест системы для Гаусса
+
+// Separate test for Gaussian elimination (special system)
 void test_gauss_special() {
     printf("\nGAUSS METHOD TEST (SPECIAL SYSTEM)\n");
 
-    // Система:
+    // System:
     // 0x + 0y + 1z = 1
     // 0x + 1y + 0z = 2
     // 1x + 0y + 0z = 3
@@ -173,7 +174,7 @@ void test_gauss_special() {
 int main() {
     printf("MATRIX LIBRARY TESTING\n");
 
-    // Тест 1: Базовые операции
+    // Test 1: Basic operations
     printf("\nPART 1: Basic matrix operations\n");
     printf("--------------------------------------\n");
 
@@ -204,17 +205,17 @@ int main() {
     matrix_free(id);
     matrix_free(copy);
 
-    // Тест 2: Арифметические операции
+    // Test 2: Arithmetic operations
     test_arithmetic();
 
-    // Тест 3: Матричная экспонента
+    // Test 3: Matrix exponential
     test_matrix_exp();
 
-    // Тест 4: Решение СЛАУ методом Гаусса
+    // Test 4: Solving SLAE by Gaussian elimination
     test_gauss_solve();
     test_gauss_special();
 
-    printf("ALL TESTS COMPLETED\n");
+    printf("\nALL TESTS COMPLETED\n");
     getchar();
 
     return 0;
